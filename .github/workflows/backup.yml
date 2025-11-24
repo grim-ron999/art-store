@@ -1,0 +1,40 @@
+name: Daily DB Backup
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # every day at 03:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    env:
+      # Provide your database connection string via repository secret DATABASE_URL
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pg tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Run backup
+        run: |
+          set -e
+          DATE=$(date +"%Y%m%d_%H%M%S")
+          FILE="artstore_backup_${DATE}.dump"
+          mkdir -p backups
+          if [ -z "$DATABASE_URL" ]; then
+            echo "DATABASE_URL secret is not set"
+            exit 1
+          fi
+          pg_dump --dbname="$DATABASE_URL" -F c -b -v -f "backups/$FILE"
+          ls -lh backups/$FILE
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artstore-backup-${{ github.run_id }}
+          path: backups/
