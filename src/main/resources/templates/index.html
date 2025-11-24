@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Art Store</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header>
+    <h1><a href="/">ArtStore</a></h1>
+    <nav><a href="/about">About</a> | <a href="/contact">Contact</a> | <a href="/admin">Admin</a></nav>
+</header>
+
+<main>
+    <section class="gallery">
+        <div th:if="${#lists.isEmpty(arts)}">No artworks yet. Visit Admin to add one.</div>
+        <div class="grid">
+            <div th:each="art : ${arts}" class="card">
+                <a th:href="@{/detail/{id}(id=${art.id})}">
+                    <img th:src="${art.imageUrl}" th:alt="${art.title}" loading="lazy" />
+                    <h3 th:text="${art.title}">Title</h3>
+                </a>
+                <p th:text="${art.price} != null ? '$' + ${art.price} : ''"></p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>&copy; 2025 Your Name</footer>
+</body>
+</html>

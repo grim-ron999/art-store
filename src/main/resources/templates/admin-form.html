@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title th:text="${art.id} != null ? 'Edit' : 'Add'">Add/Edit Artwork</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<h1 th:text="${art.id} != null ? 'Edit Artwork' : 'Add New Artwork'">Form</h1>
+<form th:action="@{/admin/save}" th:object="${art}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Title: <input type="text" th:field="*{title}" /></label><br/>
+    <label>Category: <input type="text" th:field="*{category}" /></label><br/>
+    <label>Price: <input type="number" step="0.01" th:field="*{price}" /></label><br/>
+    <label>Image URL: <input type="text" th:field="*{imageUrl}" /></label><br/>
+    <label>Description:<br/><textarea th:field="*{description}"></textarea></label><br/>
+    <label>Available: <input type="checkbox" th:field="*{available}" /></label><br/>
+    <button type="submit">Save</button>
+</form>
+<p><a href="/admin">Back to admin</a></p>
+</body>
+</html>

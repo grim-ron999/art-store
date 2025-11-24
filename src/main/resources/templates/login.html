@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login - ArtStore</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<h1>Admin Login</h1>
+<form method="post" action="/login">
+    <label>Username: <input type="text" name="username" /></label><br/>
+    <label>Password: <input type="password" name="password" /></label><br/>
+    <button type="submit">Login</button>
+    <input type="hidden" name="_csrf" />
+</form>
+<p><a href="/">Back to store</a></p>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title th:text="${art != null} ? ${art.title} + ' - ArtStore' : 'Artwork'">Artwork</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<a href="/">← Back</a>
+<div th:if="${art == null}">Artwork not found.</div>
+<div th:if="${art != null}">
+    <h1 th:text="${art.title}">Title</h1>
+    <img th:src="${art.imageUrl}" th:alt="${art.title}" loading="lazy" />
+    <p th:text="${art.description}">Description</p>
+    <p th:text="${art.price} != null ? '$' + ${art.price} : ''"></p>
+</div>
+</body>
+</html>

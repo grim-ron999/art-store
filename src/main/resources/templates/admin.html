@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin - ArtStore</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<h1>Admin Panel</h1>
+<p><a href="/admin/add">+ Add New Artwork</a> | <a href="/">View Storefront</a></p>
+
+<table>
+    <thead><tr><th>Title</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
+    <tbody>
+        <tr th:each="art : ${arts}">
+            <td th:text="${art.title}">Title</td>
+            <td th:text="${art.category}">Category</td>
+            <td th:text="${art.price}">Price</td>
+            <td>
+                <a th:href="@{/admin/edit/{id}(id=${art.id})}">Edit</a> |
+                <a th:href="@{/admin/delete/{id}(id=${art.id})}" onclick="return confirm('Delete?')">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
